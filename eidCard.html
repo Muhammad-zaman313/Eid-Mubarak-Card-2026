@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ultra Premium Eid Card</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Great+Vibes&display=swap"
+    rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #0f2027, #000);
+      color: white;
+    }
+
+    /* Stars */
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .card {
+      position: relative;
+      width: 360px;
+      padding: 30px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 50px rgba(255, 215, 0, 0.4);
+      text-align: center;
+      z-index: 2;
+      animation: fadeIn 1.5s ease;
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 42px;
+      color: gold;
+      text-shadow: 0 0 20px gold;
+    }
+
+    .moon {
+      font-size: 55px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    p {
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+
+    input {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      width: 100%;
+      text-align: center;
+    }
+
+    .btn {
+      margin-top: 15px;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(45deg, gold, orange);
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px gold;
+    }
+
+    .message {
+      margin-top: 15px;
+      display: none;
+      color: #FFD700;
+      font-size: 16px;
+      animation: fadeIn 1s ease;
+    }
+
+    .share {
+      display: none;
+      margin-top: 15px;
+    }
+
+    .share a {
+      text-decoration: none;
+      background: #25D366;
+      padding: 10px 20px;
+      border-radius: 20px;
+      color: white;
+      font-weight: bold;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Envelope */
+    .envelope {
+      width: 80px;
+      height: 60px;
+      background: gold;
+      margin: 15px auto;
+      position: relative;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .envelope:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-top: 30px solid #d4af37;
+      border-left: 40px solid transparent;
+      border-right: 40px solid transparent;
+    }
+  </style>
+</head>
+
+<body>
+
+  <canvas id="stars"></canvas>
+
+  <div class="card">
+    <div class="moon">🌙✨</div>
+    <h1>Eid Mubarak</h1>
+
+    <p>Apna naam likho aur apna personal Eid card banao 💖</p>
+
+    <input type="text" id="name" placeholder="Enter your name" />
+
+    <div class="envelope" onclick="openEnvelope()"></div>
+
+    <button class="btn" onclick="generateCard()">Generate Card 🎁</button>
+
+    <div class="message" id="msg"></div>
+
+    <div class="share" id="share">
+      <a id="wa" target="_blank">Share on WhatsApp</a>
+    </div>
+  </div>
+
+
+
+  <audio id="music" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b6c64.mp3?filename=ramadan-11423.mp3">
+  </audio>
+  <script>
+
+    function openEnvelope() {
+      alert("💌 Eidi envelope open ho gaya!");
+    }
+
+    function generateCard() {
+      let name = document.getElementById("name").value;
+      if (name === "") name = "Dost";
+
+      let text = `🎉 Eid Mubarak ${name}!\n\nAllah tumhe khushiyan, sehat aur success de 💖`;
+
+      document.getElementById("msg").innerHTML = text.replace(/\n/g, "<br>");
+      document.getElementById("msg").style.display = "block";
+
+      let link = `https://wa.me/?text=${encodeURIComponent(text)}`;
+      document.getElementById("wa").href = link;
+      document.getElementById("share").style.display = "block";
+
+      document.getElementById("music").play();
+    }
+
+    /* Stars animation */
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let stars = [];
+    for (let i = 0; i < 100; i++) {
+      stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 2 });
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "white";
+      stars.forEach(s => {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    }
+
+    setInterval(drawStars, 50);
+
+  </script>
+
+</body>
+
+</html>
