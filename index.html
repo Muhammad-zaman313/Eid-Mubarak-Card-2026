@@ -2,11 +2,10 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ultra Premium Eid Card</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Islamic Eid Card</title>
 
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Great+Vibes&display=swap"
     rel="stylesheet">
 
@@ -14,64 +13,52 @@
     * {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+      box-sizing: border-box
     }
 
     body {
+      font-family: 'Poppins', sans-serif;
       height: 100vh;
+      overflow: hidden;
+      background: url('https://static.vecteezy.com/system/resources/previews/002/396/529/original/eid-mubarak-greeting-banner-template-free-vector.jpg') no-repeat center center/cover;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: 'Poppins', sans-serif;
-      overflow: hidden;
-      background: radial-gradient(circle at top, #0f2027, #000);
       color: white;
+     
     }
 
-    /* Stars */
     canvas {
       position: absolute;
       top: 0;
-      left: 0;
+      left: 0
     }
+
 
     .card {
       position: relative;
-      width: 360px;
+      z-index: 2;
+      width: 330px;
       padding: 30px;
       border-radius: 30px;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(20px);
-      box-shadow: 0 0 50px rgba(255, 215, 0, 0.4);
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(15px);
       text-align: center;
-      z-index: 2;
-      animation: fadeIn 1.5s ease;
+      box-shadow: 0 0 60px rgba(255, 215, 0, 0.5);
+
+
     }
 
     h1 {
       font-family: 'Great Vibes', cursive;
-      font-size: 42px;
+      font-size: 45px;
       color: gold;
-      text-shadow: 0 0 20px gold;
-    }
-
-    .moon {
-      font-size: 55px;
-      animation: float 3s ease-in-out infinite;
     }
 
     p {
-      margin-top: 10px;
-      line-height: 1.6;
-    }
-
-    input {
       margin-top: 15px;
-      padding: 10px;
-      border-radius: 10px;
-      border: none;
-      width: 100%;
-      text-align: center;
+      font-size: 16px;
+      line-height: 1.6;
     }
 
     .btn {
@@ -79,49 +66,45 @@
       padding: 12px 25px;
       border: none;
       border-radius: 50px;
-      background: linear-gradient(45deg, gold, orange);
+      background: gold;
       font-weight: bold;
       cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 20px gold;
     }
 
     .message {
-      margin-top: 15px;
       display: none;
+      margin-top: 15px;
       color: #FFD700;
       font-size: 16px;
-      animation: fadeIn 1s ease;
     }
 
     .share {
       display: none;
-      margin-top: 15px;
+      margin-top: 15px
     }
 
     .share a {
-      text-decoration: none;
-      background: #25D366;
-      padding: 10px 20px;
+      display: inline-block;
+      margin: 5px;
+      padding: 10px 15px;
       border-radius: 20px;
+      text-decoration: none;
       color: white;
       font-weight: bold;
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
+    .whatsapp {
+      background: #25D366
+    }
 
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .download {
+      background: #ff9800
+    }
+
+    /* Moon & Stars */
+    .moon {
+      font-size: 55px;
+      animation: float 3s ease-in-out infinite;
     }
 
     @keyframes float {
@@ -136,27 +119,17 @@
       }
     }
 
-    /* Envelope */
-    .envelope {
-      width: 80px;
-      height: 60px;
-      background: gold;
-      margin: 15px auto;
-      position: relative;
-      cursor: pointer;
-      border-radius: 5px;
+    .money {
+      position: absolute;
+      top: -50px;
+      font-size: 24px;
+      animation: fall linear infinite;
     }
 
-    .envelope:before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-top: 30px solid #d4af37;
-      border-left: 40px solid transparent;
-      border-right: 40px solid transparent;
+    @keyframes fall {
+      to {
+        transform: translateY(120vh)
+      }
     }
   </style>
 </head>
@@ -164,74 +137,76 @@
 <body>
 
   <canvas id="stars"></canvas>
+  <div class="container">
+    <div class="card" id="card">
+      <div class="moon">🌙✨</div>
+      <h1>Eid Mubarak</h1>
+      <p>From: <strong>Muhammad Zaman</strong></p>
+      <p>Allah aapko Eid ke din khushiyan, sehat aur barkat se nawaze. Apne doston aur family ke saath mohabbat aur
+        shukr ka izhar karein 🤲</p>
 
-  <div class="card">
-    <div class="moon">🌙✨</div>
-    <h1>Eid Mubarak</h1>
+      <button class="btn" onclick="startCard()">Apna Eid Card Kholain 🎁</button>
 
-    <p>Apna naam likho aur apna personal Eid card banao 💖</p>
+      <div class="message" id="msg">
+        🎉 Eid Mubarak!<br>
+        Allah aapko khushiyan, sehat aur barkat de. Is khoobsurat din ko apne loved ones ke saath enjoy karein ❤️
+      </div>
 
-    <input type="text" id="name" placeholder="Enter your name" />
-
-    <div class="envelope" onclick="openEnvelope()"></div>
-
-    <button class="btn" onclick="generateCard()">Generate Card 🎁</button>
-
-    <div class="message" id="msg"></div>
-
-    <div class="share" id="share">
-      <a id="wa" target="_blank">Share on WhatsApp</a>
+      <div class="share" id="share">
+        <a class="whatsapp" id="wa">WhatsApp par Share karein</a>
+        <a class="download" onclick="downloadCard()">Download</a>
+      </div>
     </div>
   </div>
 
 
+  <audio id="music" loop>
+    <source src="music/the_mountain-ramadan-490601.mp3" type="audio/mpeg">
+  </audio>
 
- 
   <script>
-
-    function openEnvelope() {
-      alert("💌 Eidi envelope open ho gaya!");
+    function startCard() {
+      document.getElementById('msg').style.display = 'block';
+      document.getElementById('share').style.display = 'block';
+      document.getElementById('wa').href = `https://wa.me/?text=${encodeURIComponent('🎉 Eid Mubarak! Allah aapko khushiyan, sehat aur barkat de ❤️ From Muhammad Zaman')}`;
+      document.getElementById('music').volume = 0.3;
+      document.getElementById('music').play();
+      startMoneyRain();
     }
 
-    function generateCard() {
-      let name = document.getElementById("name").value;
-      if (name === "") name = "Dost";
-
-      let text = `🎉 Eid Mubarak ${name}!\n\nAllah tumhe khushiyan, sehat aur success de 💖`;
-
-      document.getElementById("msg").innerHTML = text.replace(/\n/g, "<br>");
-      document.getElementById("msg").style.display = "block";
-
-      let link = `https://wa.me/?text=${encodeURIComponent(text)}`;
-      document.getElementById("wa").href = link;
-      document.getElementById("share").style.display = "block";
-
-      document.getElementById("music").play();
+    function startMoneyRain() {
+      for (let i = 0; i < 20; i++) {
+        let m = document.createElement('div');
+        m.className = 'money';
+        m.innerText = '💖 🥰 😍';
+        m.style.left = Math.random() * 100 + '%';
+        m.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        document.body.appendChild(m);
+      }
     }
 
-    /* Stars animation */
-    const canvas = document.getElementById("stars");
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
 
+    function downloadCard() {
+      alert('Screenshot le kar apna card save karein 😄');
+    }
+
+    /* Stars */
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
     let stars = [];
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 150; i++) {
       stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 2 });
     }
-
-    function drawStars() {
+    function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "white";
+      ctx.fillStyle = 'white';
       stars.forEach(s => {
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fill();
       });
     }
-
-    setInterval(drawStars, 50);
-
+    setInterval(draw, 50);
   </script>
 
 </body>
